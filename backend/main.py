@@ -5,10 +5,16 @@ import torch
 import torchvision.transforms as transforms
 import torch.nn as nn
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
+import os
 
-origins = [
-    "http://localhost:5173"
-]
+load_dotenv()
+
+ALLOWED_ORIGINS = os.getenv('ALLOWED_ORIGINS')
+
+print(ALLOWED_ORIGINS)
+
+origins = ALLOWED_ORIGINS.split(",")
 
 app = FastAPI()
 app.add_middleware(
