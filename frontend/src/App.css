@@ -1,0 +1,11 @@
+.scrollbar-custom::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.scrollbar-custom {
+    scrollbar-color: rgba(192, 192, 192, 0.3) transparent;
+    /* For Firefox */
+    scrollbar-width: thin;
+    /* For Firefox */
+}
