@@ -27,3 +27,5 @@ For example, if the backend runs on `http://localhost:8000`, the value of the `V
 - Run `fastapi dev` for run
 There is an `ALLOWED_ORIGIN` variable in the `.env` file. The value of this variable will be the url of the frontend. For instance,
 if the frontend runs on `http://localhost:5173`, the value of the variable will be this url.
+
+Project demo: [Link](https://www.youtube.com/watch?v=FFNXYUJcOMA)
