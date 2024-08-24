@@ -1,4 +1,4 @@
-A simple webapp to recognize handwritten digits from 0 to 9
+A simple webapp to recognize handwritten digits from 0 to 9 and visualize activation maps
 
 ![Screenshot 2024-08-24 194026](https://github.com/user-attachments/assets/1aac55e0-8081-4737-bfe2-5363fc5c2da3)
 
