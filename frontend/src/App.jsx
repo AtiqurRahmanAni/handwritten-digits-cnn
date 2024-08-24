@@ -15,8 +15,11 @@ const App = () => {
       const response = await axiosInstance.post("/api/classify", { image });
       setData(response.data);
     } catch (err) {
-      // console.log(err);
-      toast.error("Something went wrong");
+      if (err?.response) {
+        toast.error(err.response.data.error);
+      } else {
+        toast.error("Something went wrong");
+      }
     } finally {
       setLoading(false);
     }

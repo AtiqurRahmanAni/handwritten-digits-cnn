@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
+import ModelPreview from "./ModelPreview";
 
 const Canvas = ({ classify, loading = false }) => {
   const CANVAS_SIZE = 200;
   const canvasRef = useRef(null);
   const canvasContextRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -20,7 +22,7 @@ const Canvas = ({ classify, loading = false }) => {
     ctx.fillStyle = "black";
     ctx.lineCap = "round";
     ctx.strokeStyle = "white";
-    ctx.lineWidth = 12;
+    ctx.lineWidth = 8;
     ctx.scale(1, 1);
 
     document.body.addEventListener("mouseout", bodyMouseOut);
@@ -96,35 +98,43 @@ const Canvas = ({ classify, loading = false }) => {
   };
 
   return (
-    <div>
-      <div className="text-center font-semibold">
-        <h3>Draw digit here (one digit)</h3>
+    <>
+      <div>
+        <div className="text-center font-semibold">
+          <h3>Draw digit here (one digit)</h3>
+        </div>
+        <canvas
+          className="shadow-sm w-[250px] h-[250px] border-2"
+          ref={canvasRef}
+          onMouseDown={startDrawing}
+          onMouseUp={finishDrawing}
+          onMouseMove={draw}
+        />
+        <div className="mt-2 flex justify-center gap-x-2">
+          <button
+            className="bg-red-500 px-3 py-1.5 text-white rounded-md font-semibold transition-colors duration-100 hover:bg-red-600"
+            onClick={clearCanvas}
+          >
+            Clear
+          </button>
+          <button
+            className={`bg-indigo-500 px-3 py-1.5 text-white rounded-md font-semibold transition-colors duration-100 hover:bg-indigo-600 ${
+              loading ? "bg-indigo-500/65 pointer-events-none" : ""
+            }`}
+            onClick={onSubmit}
+            disabled={loading}
+          >
+            {!loading ? "Submit" : "Submitting..."}
+          </button>
+        </div>
+        <div className="text-center mt-2">
+          <button className="underline" onClick={() => setIsOpen(true)}>
+            View The model
+          </button>
+        </div>
       </div>
-      <canvas
-        className="shadow-sm w-[250px] h-[250px] border-2"
-        ref={canvasRef}
-        onMouseDown={startDrawing}
-        onMouseUp={finishDrawing}
-        onMouseMove={draw}
-      />
-      <div className="mt-2 flex justify-center gap-x-2">
-        <button
-          className="bg-red-500 px-3 py-1.5 text-white rounded-md font-semibold transition-colors duration-100 hover:bg-red-600"
-          onClick={clearCanvas}
-        >
-          Clear
-        </button>
-        <button
-          className={`bg-indigo-500 px-3 py-1.5 text-white rounded-md font-semibold transition-colors duration-100 hover:bg-indigo-600 ${
-            loading ? "bg-indigo-500/65 pointer-events-none" : ""
-          }`}
-          onClick={onSubmit}
-          disabled={loading}
-        >
-          {!loading ? "Submit" : "Submitting..."}
-        </button>
-      </div>
-    </div>
+      <ModelPreview isOpen={isOpen} setIsOpen={setIsOpen} />
+    </>
   );
 };
 

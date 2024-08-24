@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from typing import List
 import torch
@@ -111,9 +112,16 @@ async def root():
     return {"message": "API is working"}
 
 
-@app.post("/api/classify")
+@app.post("/api/classify", status_code=200)
 async def classify(image: Image):
-    img = transform(torch.tensor(image.image).unsqueeze(0))
+    img_tensor = torch.tensor(image.image)
+    if img_tensor.max().item() == 0.0:
+        return JSONResponse(status_code=400, content={"error": "Blank input"})
+
+    img_mean, img_std = img_tensor.mean(), img_tensor.std()
+    if img_mean.item() > 0.0:
+        img_tensor = (img_tensor - img_mean) / img_std
+    img = transform(img_tensor.unsqueeze(0))
 
     with torch.no_grad():
         probas = softmax(cnn(img.unsqueeze(0)))
@@ -125,11 +133,11 @@ async def classify(image: Image):
 
         activations[conv_layer] = activations[conv_layer].to(torch.uint8)
 
-    return {"probas": probas.view(-1).tolist(), "predicted": predicted, "activations": {
+    return JSONResponse(status_code=200, content={"probas": probas.view(-1).tolist(), "predicted": predicted, "activations": {
         "conv1_1": activations['conv1_1'].tolist(),
         "conv1_2": activations['conv1_2'].tolist(),
         "conv2_1": activations['conv2_1'].tolist(),
         "conv2_2": activations['conv2_2'].tolist(),
         "conv3_1": activations['conv3_1'].tolist(),
         "conv3_2": activations['conv3_2'].tolist(),
-    }}
+    }})
