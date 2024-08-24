@@ -4,7 +4,6 @@ from typing import List
 import torch
 import torchvision.transforms as transforms
 import torch.nn as nn
-import torchvision
 from fastapi.middleware.cors import CORSMiddleware
 
 origins = [
@@ -109,8 +108,6 @@ async def root():
 @app.post("/api/classify")
 async def classify(image: Image):
     img = transform(torch.tensor(image.image).unsqueeze(0))
-
-    torchvision.utils.save_image(img, "./test.png")
 
     with torch.no_grad():
         probas = softmax(cnn(img.unsqueeze(0)))
