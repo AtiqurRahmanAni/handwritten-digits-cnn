@@ -29,4 +29,5 @@ There is an `ALLOWED_ORIGIN` variable in the `.env` file. The value of this vari
 if the frontend runs on `http://localhost:5173`, the value of the variable will be this url.
 
 Project demo: [Link](https://www.youtube.com/watch?v=FFNXYUJcOMA)
+
 Live: [Link](https://handwritten-digits-cnn-uopk.vercel.app/)
