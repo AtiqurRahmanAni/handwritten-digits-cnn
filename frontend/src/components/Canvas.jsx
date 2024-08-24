@@ -24,18 +24,10 @@ const Canvas = ({ classify, loading = false }) => {
     ctx.strokeStyle = "white";
     ctx.lineWidth = 8;
     ctx.scale(1, 1);
-
-    document.body.addEventListener("mouseout", bodyMouseOut);
-
-    return () => {
-      document.body.removeEventListener("mouseout", bodyMouseOut);
-    };
   }, []);
 
-  const bodyMouseOut = (event) => {
-    if (!event.relatedTarget || event.relatedTarget.nodeName === "HTML") {
-      setIsDrawing(false);
-    }
+  const onMouseLeave = (event) => {
+    setIsDrawing(false);
   };
 
   const startDrawing = ({ nativeEvent }) => {
@@ -109,6 +101,7 @@ const Canvas = ({ classify, loading = false }) => {
           onMouseDown={startDrawing}
           onMouseUp={finishDrawing}
           onMouseMove={draw}
+          onMouseLeave={onMouseLeave}
         />
         <div className="mt-2 flex justify-center gap-x-2">
           <button
