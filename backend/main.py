@@ -81,7 +81,7 @@ def get_activation(layer_name):
     return hook
 
 
-cnn = CNN(l1=1024, l2=256)
+cnn = CNN(l1=512, l2=512)
 cnn.load_state_dict(torch.load("./train_model.pt",
                     map_location="cpu", weights_only=True))
 cnn.eval()
