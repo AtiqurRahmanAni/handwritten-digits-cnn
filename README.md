@@ -1,4 +1,4 @@
-A simple webapp to recognize handwritten digits from 0 to 9
+A simple webapp to recognize handwritten digits from 0 to 9 and visualize activation maps
 
 ![Screenshot 2024-08-24 194026](https://github.com/user-attachments/assets/1aac55e0-8081-4737-bfe2-5363fc5c2da3)
 
@@ -27,3 +27,7 @@ For example, if the backend runs on `http://localhost:8000`, the value of the `V
 - Run `fastapi dev` for run
 There is an `ALLOWED_ORIGIN` variable in the `.env` file. The value of this variable will be the url of the frontend. For instance,
 if the frontend runs on `http://localhost:5173`, the value of the variable will be this url.
+
+Project demo: [Link](https://www.youtube.com/watch?v=FFNXYUJcOMA)
+
+Live: [Link](https://handwritten-digits-cnn-uopk.vercel.app/)
