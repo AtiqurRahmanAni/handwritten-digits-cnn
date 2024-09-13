@@ -22,9 +22,9 @@ For example, if the backend runs on `http://localhost:8000`, the value of the `V
 - create `.env` file
 - Copy everything from the `.env.example` file
 - Assign values
-- run `python -m venv venv` and `.\venv\Scripts\activate` to create a new virtual environment and activate it
+- run `python -m venv venv` and `.\venv\Scripts\activate` to create a new virtual environment and activate it (for windows OS)
 - Run `pip install -r requirements.txt` to install all the dependencies
-- Run `fastapi dev` for run
+- Run `fastapi dev main.py` for run
 There is an `ALLOWED_ORIGIN` variable in the `.env` file. The value of this variable will be the url of the frontend. For instance,
 if the frontend runs on `http://localhost:5173`, the value of the variable will be this url.
 
